@@ -6,4 +6,5 @@ Team member
 -Sebastian Shergill https://github.com/Sebbshergill
 
 Feature map:
--https://trello.com/b/of96DLTb/story-map-calender
+-https://trello.com/b/of96DLTb/feature-map-to-do-list
+
