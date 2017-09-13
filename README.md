@@ -5,6 +5,5 @@ Team member
 -Ellen https://github.com/Ellen63
 -Sebastian Shergill https://github.com/Sebbshergill
 
-Feature map:
--https://trello.com/b/of96DLTb/feature-map-to-do-list
+Roadmap: -https://trello.com/b/of96DLTb/feature-map-to-do-list
 
