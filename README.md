@@ -7,3 +7,5 @@ Team member
 
 Roadmap: -https://trello.com/b/of96DLTb/feature-map-to-do-list
 
+Beskrivelse:
+Dette produketet 
