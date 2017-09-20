@@ -7,5 +7,6 @@ Team member
 
 Roadmap: -https://trello.com/b/of96DLTb/feature-map-to-do-list
 
-Beskrivelse:
-Dette produketet 
+Mål: Å lage en "to do list"  som skal være enkel å bruke og skal være et verktøy for å gjøre hverdagen enklere.
+
+
