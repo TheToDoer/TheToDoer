@@ -12,7 +12,7 @@ Mål:
 
 Storypoints:
 Vi har 9 storypoints i uka og det er så mange vi kan gjøre. 3 sortypoints = 25 timer. Vi er 3 på gruppa og har 3 hver.
-Så 3x3 = 9.
+Så 3x3 = 9. Vi kan ikke sette mindre enn 0.5 story point per oppgave. 
 
 Project Board:
 https://trello.com/b/pecH3ORW/the-to-do-list
