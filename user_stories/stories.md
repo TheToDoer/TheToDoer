@@ -1,41 +1,24 @@
 Hva jeg ønsker av ToDoer:
 
-Kalender som inneholder år med årstall, mnd med navn, uke med ukenr, dager med dagnavn, timer.
-Dette for at man skal kunne planegge mer enn kun dag for dag. 
-(max tilbake til et gitt årstall og max frem til et gitt årstall, 
-si 50år frem i tid, hvor det legges til nytt år når man laster ned oppdatering for ToDoer)
+Opprette ny bruker med passord.
+Logg inn.
+Rediger bruker (endre passord, glemt passord, slett bruker).
+Legg til liste.
+Navngi liste med egendefinert navn/dags dato.
+Velg om liste skal være kun for dags dato, for en bestemt tidsperiode, eller uten tidsperspektiv. (mulighet for å se kalender, evt. hvilke datoer man har knyttet en liste til).
+Velg om lista skal være privat, delt eller åpen (synlig for hvem som helst).
+Mulighet til å redigere/slette lister.
+Legg til hendelse, velg om hendelsen skal være tidsbestemt, eller uten tidsperspektiv.
+Mulighet for å legge inn notat for hendelsen.
+Velg kategori for hendelsen ut fra en forhåndsdefinert liste hvor en er annet/gi navn/opprett egendefinert gruppekategori (eks handleliste, pakkeliste osv).
+Mulighet for å sortere etter kategoriene som er på punktet ovenfor, eks samle alle punktene som tilhører under handleliste.
+Mulighet for å flytte på punktene da lista er i bruk. Si handleliste, man finner melk, man legger melk på toppen av lista for den er funnet, og man kan gå til neste punkt.
+Velg om punktet evt skal ha prioritering.
+Velg om man ønsker påminnelse på liste, eller om man ønsker påminnelse for enkelte punkter på listen.
+Mulighet til å redigere/slette oppgaver på listen.
+Mulighet til å krysse av fullførte punkter på listen, om de så blir i en lysere farge, og så fjernet fra listen når sammendrag hentes ut av brukeren, eller om det forsvinner fra listen, men kommer med på sammendraget når brukeren velger å hente det ut.
+Få ut sammendrag av utførte hendelser. Hvor ikke utførte hendelser blir liggende igjen i lista.
 
-Søkefunksjon hvor man kan søke seg til en gitt dato, for å kunne se hva som har vært i fortid, 
-eller hva som kommer i fremtid. Hvor det som har vært i fortid enten kan slettes helt, 
-eller teksten står i lys grå, og det som kommer i fremtid står i sort tydelig skrift.
-Her må man både kunne søke på en gitt dato samme hvor langt frem eller tilbake i tid, 
-samt kunne søke på hendelser lagt til i kalender, for å så finne ut hvilken dag dette er.
-
-For hver hendelse man legger inn skal man kunne legge hendelsen som en slags overskrift for dagen, 
-hvor man så kan trykke inn på hendelesen for å lese mer info, slik at hendelsen i kalenderen har kort gjenkjennelig navn, 
-men videre info ligger inne i hendelsen. Si Per skal i matbutikken å handle på fredag etter jobb, 
-da kan han legge inn "Handle mat" kl 16:30, og dette ligger synlig i kalenderen, 
-når man så trykker inn på hendelsen kan man finne et eget notat for handlelisten. 
-Hvor han så kan fjerne hver ting etterhvert som man finner den.
-
-Synkronisering av kalender. Si en familie på 5, med hektiske dager skal få til å samkjøre. 
-Her kan foreldrene ha hver sin kalender, men at man kan velge hver sin farge for hvem som skal hva. 
-Kun Per kan legge til med sin farge, og kun Anna kan legge til med sin farge, men begge kan se hva den andre skal, 
-sånn vet de hvem som henter Bob når han er ferdig på fotballtrening den uka. Evt de blir invitert til noe, 
-så er det enkelt å se i kalenderen om andre har planer den dagen.
-
-Ikoner. Si Bob skal på fotballtrening hver tirsdag og torsdag hele året utenom feriene. 
-Da skal man kunne velge å legge inn en fotball, si man viser kalenderen med en uke, 
-da får man et fotballikon frem på tirsdag og torsdag. 
-Man må så trykke seg inn på en bestemt dag for å for å se teksten på hva som skal skje, 
-og tidspunktet for hendelsen.Tillegg her å kunne legge til farge for hvilken person hendelsen skal gjelde for.
-
-Pia skal passe katten til Per når han skal på ferie i 6mnd. 
-Hun må huske og mate katten hver eneste morgen, ettermiddag og kveld. 
-Dette gjelder hver eneste dag, til og med helligdager. 
-Da burde det eksistere en funksjon hvor Pia kan legge dette til i kalenderen sin hver eneste dag til et tidspunkt. 
-Hun må så lage en ny hendelse med nytt tidspunkt for de andre matetidene, 
-men at dette kan legges inn i kalenderen fra gitt dato til gitt dato til samme tid.
 
 Sebastian User Storie:
 
