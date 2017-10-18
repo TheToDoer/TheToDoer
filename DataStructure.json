@@ -1,15 +1,14 @@
 
 Schema:
 {
+    "id":{"type":"integer"},
     navn:{
         "type":"string",
         "description": "Navnet brukeren har gitt listen"
  },
    eier:{
      "type":"string",
-     "description": "Sier noe om hvem som eier hvilken liste/den som laget
-     den"
-
+     "description": "Sier noe om hvem som eier hvilken liste/den som laget den"
 },
 
   innhold:{
