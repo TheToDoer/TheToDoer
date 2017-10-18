@@ -1,0 +1,40 @@
+
+Schema:
+{
+    navn:{
+        "type":"string",
+        "description": "Navnet brukeren har gitt listen"
+ },
+   eier:{
+     "type":"string",
+     "description": "Sier noe om hvem som eier hvilken liste/den som laget
+     den"
+
+},
+
+  innhold:{
+      "type":"array",
+      "items":[
+          {
+           "beskrivelse":{"type":"string"},
+           "dato":{"type":"dato"},
+          }
+      ]
+  },
+
+  filter:{
+      "type":"array",
+      "items":[
+          {
+           "beskrivelse":{"type":"string"},
+           "dato":{"type":"dato"},
+          }
+      ]
+  },
+
+  deadline:{
+      "type":"dato",
+      "description": "Et liste element som må gjøres innen en viss dato eller
+      tidsramme"
+  },
+}
