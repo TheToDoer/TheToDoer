@@ -1,0 +1,11 @@
+{
+  "name": "server_thetodoer",
+  "version": "1.0.0",
+  "description": "Server for the to doer app.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lena",
+  "license": "ISC"
+}

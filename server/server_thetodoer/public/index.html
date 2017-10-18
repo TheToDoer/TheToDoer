@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Slider draw</title>
+</head>
+
+<body>
+    <canvas id="cnv" width="400" height="400"></canvas>
+    <br>
+    <input id="sldDst" type="range" min="100" max="300" value="200">
+    <input id="sldRad" type="range" min="5" max="100" value="30">
+</body>
+    
+<script>
+    
+    // init ------------------------------------------ 
+    var cnv  = document.getElementById("cnv");
+    var sldDst = document.getElementById("sldDst");
+    var sldRad = document.getElementById("sldRad");
+    
+    var x = 200; //start distance
+    var r = 30; //start radius
+    
+    var ctx = cnv.getContext("2d");    
+    ctx.lineWidth = 2;
+    ctx.fillStyle = "#ffaa00";
+    ctx.strokeStyle = "#aa0000";
+    
+    //register event handlers to the sliders
+    sldDst.oninput = changeDistance;
+    sldRad.oninput = changeRadius;
+    
+    draw();
+    
+    // changeDistance --------------------------------
+    function changeDistance() {
+        x = parseInt(sldDst.value);
+        draw();
+    }
+    
+    // changeRadius ----------------------------------
+    function changeRadius() {
+        r = parseInt(sldRad.value);
+        draw();
+    }
+    
+    // draw ------------------------------------------
+    function draw() {
+        
+        ctx.clearRect(0, 0, cnv.width, cnv.height);
+
+        ctx.beginPath(); //left circle 
+
+            ctx.arc(100, 200, r, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.stroke();
+
+        ctx.beginPath(); //right circle 
+
+            ctx.arc(x, 200, r, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.stroke();
+    } 
+    
+    
+</script>
+    
+</html>
+
+
+
