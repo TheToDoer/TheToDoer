@@ -1,6 +1,49 @@
 const express = require('express')
 const app = express()
 
+
+//database connect------------------
+const { Client } = require('pg');
+
+let dbString = process.env.DATABASE_URL
+
+console.log(dbString);
+
+const client = new Client({
+  connectionString:dbString,
+  ssl: true,
+});
+
+client.connect().then(()=>{console.log("hmm");}).catch(e => {
+    console.error('query error', e.message, e.stack)
+  });
+
+client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
+});
+
+/*
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: false,
+});
+
+client.connect();
+
+client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
+});
+
+*/
+//----------------------------
 app.use(express.static('public'))
 app.set('port', (process.env.PORT || 8080));
 
