@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>text in-out template</title>
+</head>
+
+<body>
+    <input id="txtIn" value="Type something" />    
+    <button id="btn">Click me!</button>
+    <h1 id="txtOut">The result</h1>  
+</body>
+    
+<script>
+    
+    // init ------------------------------------------ 
+    var txtIn  = document.getElementById("txtIn");
+    var txtOut = document.getElementById("txtOut");
+    var btn    = document.getElementById("btn");
+    
+    btn.onclick = btnOnClick;    
+
+    // btnOnClick ----------------------------------
+    function btnOnClick() {
+
+      txtOut.innerHTML = txtIn.value;    
+      
+    }
+    
+</script>
+    
+</html>
+
