@@ -16,3 +16,7 @@ Så 3x3 = 9. Vi kan ikke sette mindre enn 0.5 story point per oppgave.
 
 Project Board:
 https://trello.com/b/pecH3ORW/the-to-do-list
+
+Heroku Bruker:
+Brukernavn: seb_norge@hotmail.com
+Passord:Todoer99
