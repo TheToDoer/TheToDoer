@@ -19,7 +19,7 @@ https://trello.com/b/of96DLTb/feature-map-to-do-list
 
 Heroku Bruker:
 Brukernavn: seb_norge@hotmail.com
-Passord:Todoer99
+
 
 Heroku-app:http://thetodoer-app.herokuapp.com/
 
