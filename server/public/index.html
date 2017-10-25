@@ -4,31 +4,50 @@
 <head>
   <meta charset="utf-8" />
   <title>text in-out template</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-    <input id="txtIn" value="Type something" />    
-    <button id="btn">Click me!</button>
-    <h1 id="txtOut">The result</h1>  
+      <form action="/action_page.php">
+    <div class="imgcontainer">
+      <img src="img_avatar2.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <label><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+
+      <button type="submit">Login</button>
+      <input type="checkbox" checked="checked"> Remember me
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" class="cancelbtn">Cancel</button>
+      <span class="psw">Forgot <a href="#">password?</a></span>
+    </div>
+    </form>
+    
 </body>
-    
+
 <script>
-    
-    // init ------------------------------------------ 
+
+    // init ------------------------------------------
     var txtIn  = document.getElementById("txtIn");
     var txtOut = document.getElementById("txtOut");
     var btn    = document.getElementById("btn");
-    
-    btn.onclick = btnOnClick;    
+
+    btn.onclick = btnOnClick;
 
     // btnOnClick ----------------------------------
     function btnOnClick() {
 
-      txtOut.innerHTML = txtIn.value;    
-      
-    }
-    
-</script>
-    
-</html>
+      txtOut.innerHTML = txtIn.value;
 
+    }
+
+</script>
+
+</html>
