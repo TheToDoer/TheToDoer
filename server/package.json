@@ -1,5 +1,5 @@
 {
-  "name": "server_the_to_doer",
+  "name": "The_To_doer",
   "version": "1.0.0",
   "description": "server for the to doer app",
   "main": "server.js",
