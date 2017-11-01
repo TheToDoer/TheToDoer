@@ -1,0 +1,151 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2017-11-01T15:31:31.221Z",
+	"__export_source": "insomnia.desktop.app:v5.9.6",
+	"resources": [
+		{
+			"_id": "wrk_bb849034c18642b7adbfb8f99f4a8f29",
+			"parentId": null,
+			"modified": 1508937593106,
+			"created": 1508937593106,
+			"name": "Insomnia",
+			"description": "",
+			"certificates": [],
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_155b513e870b4ba589a39f67020d1f66",
+			"parentId": "wrk_bb849034c18642b7adbfb8f99f4a8f29",
+			"modified": 1509548040495,
+			"created": 1508937593109,
+			"name": "Base Environment",
+			"data": {
+				"server": "http://localhost:8080/"
+			},
+			"color": null,
+			"isPrivate": false,
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_8960c374b7e149a580168cd077b15332",
+			"parentId": "wrk_bb849034c18642b7adbfb8f99f4a8f29",
+			"modified": 1508937593108,
+			"created": 1508937593108,
+			"name": "Default Jar",
+			"cookies": [],
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "req_d383135ce7a048fba9596d0f32dc4892",
+			"parentId": "wrk_bb849034c18642b7adbfb8f99f4a8f29",
+			"modified": 1509549538987,
+			"created": 1509549489864,
+			"url": "{{ server  }}/list/:navn",
+			"name": "Hvordan skape ny liste",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": ""
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_3ee0dc1d7b6e4baba32ec0dbfc9f80fd"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1509549489864,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_dd7011fb4f9a49a6a7d0d931201caffa",
+			"parentId": "wrk_bb849034c18642b7adbfb8f99f4a8f29",
+			"modified": 1509549972674,
+			"created": 1509549757606,
+			"url": "{{ server  }}/list/:id",
+			"name": "Hvordan få tak på en liste",
+			"description": "",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1509549757606,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_2eda685acaa942dc8a911cf124dfc806",
+			"parentId": "wrk_bb849034c18642b7adbfb8f99f4a8f29",
+			"modified": 1509550058369,
+			"created": 1509550034902,
+			"url": "{{ server  }}/list/:id/items/:deadline",
+			"name": "Hvordan finne liste som tilhører bestemt deadline",
+			"description": "",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1509550034902,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_cc0678b5e3734f0d82eaff2ddc5a8abc",
+			"parentId": "wrk_bb849034c18642b7adbfb8f99f4a8f29",
+			"modified": 1509550172033,
+			"created": 1509550154199,
+			"url": "{{ server  }}/list/:id/filter",
+			"name": "Hvordan sette filter på en liste",
+			"description": "",
+			"method": "PUT",
+			"body": {
+				"mimeType": "application/json",
+				"text": ""
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_a1e680c7d3ee4ad583f7d7e08a133327"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1509550154199,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "env_1eb7a2a52e52427d818f2bb4eac39b76",
+			"parentId": "env_155b513e870b4ba589a39f67020d1f66",
+			"modified": 1509549357032,
+			"created": 1509548046625,
+			"name": "heroku",
+			"data": {
+				"server": "http://thetodoer-app.herokuapp.com"
+			},
+			"color": null,
+			"isPrivate": false,
+			"_type": "environment"
+		}
+	]
+}
