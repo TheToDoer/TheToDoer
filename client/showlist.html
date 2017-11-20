@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Show List</title>
+    <script src="superfetch2.js"></script>
+  </head>
+  <body>
+
+    <!-- <button id="showTravel" type="button" name="button">Show travels</button> -->
+
+
+  </body>
+
+  <script>
+
+  //var showTravel = document.getElementById("showTravel")
+
+  var token = JSON.parse(localStorage.getItem("logindata")).token;
+  var url = "http://localhost:8080/thetodoer/lists/?token=" + token;
+
+
+  superfetch(url, "json", succ, error);
+
+
+  //success --------------------------------------
+  function succ(data) {
+
+    for (var i = 0; i < data.length; i++) {
+        var div = document.createElement("div");
+        div.innerHTML += "<h3> List ID: " + data[i].list_id + "</h3>";
+        div.innerHTML += "<h3> List Name: " + data[i].list_name + "</h3>";
+        div.innerHTML += "<h3> Item on list: " + data[i].item_name + "</h3>";
+        div.innerHTML += "<h3> Item ID: " + data[i].item_id + "</h3>";
+        div.innerHTML += "<p> Description: " + data[i].list_description + "</p>";
+        div.innerHTML += "<h3> Owner: " + data[i].loginname + "</h3>";
+        var hr = document.createElement("hr");
+        document.body.appendChild(div);
+        document.body.appendChild(hr);
+
+        console.log(data);
+  }
+
+}
+
+//error ----------------------------------------
+function error(err) {
+    console.log(err);
+}
+
+</script>
+</html>

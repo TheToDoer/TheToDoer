@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Create Users</title>
+    <script src="superfetch2.js"></script>
+  </head>
+  <body>
+
+    <h3>Login</h3>
+    <input id="inpLoginname" type="text" name="" value="">
+    <br>
+    <h3>Password</h3>
+    <input id="inpPassword" type="text" name="" value="">
+    <br>
+    <h3>Full name</h3>
+    <input id="inpFullname" type="text" name="" value="">
+    <br>
+    <button id="btnCreate" type="button" name="button">Create User</button>
+
+
+
+  </body>
+
+  <script>
+
+ var inpLoginname = document.getElementById("inpLoginname");
+ var inpPassword = document.getElementById("inpPassword");
+ var inpFullname = document.getElementById("inpFullname");
+ var btnCreate = document.getElementById("btnCreate");
+
+//button click ---------------------------------
+btnCreate.onclick = function() {
+
+    var upload = JSON.stringify({
+        loginname: inpLoginname.value,
+        password: inpPassword.value,
+        fullname: inpFullname.value
+    });
+
+    var url = "http://localhost:8080/thetodoer/users/";
+
+    var cfg = {
+        method: "POST",
+        body: upload
+    }
+
+    superfetch(url, "json", succ, error, cfg);
+}
+
+//success --------------------------------------
+function succ(data) {
+
+    //save logindata/token to localStorage
+    localStorage.setItem("logindata", JSON.stringify(data));
+    console.log("it worked!");
+}
+
+//error ----------------------------------------
+function error(err) {
+    console.log(err);
+}
+
+
+  </script>
+</html>

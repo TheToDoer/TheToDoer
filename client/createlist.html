@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>TheToDoer</title>
+        <script src="superfetch2.js"></script>
+    </head>
+    <body>
+
+        <input id="listname" placeholder="list name">
+        <label for="listdecr">Description:</label>
+        <textarea id="listdecr"></textarea>
+        <button id="btnCreate">Create new list</button>
+        <br>
+
+        <h2>Create list item</h2>
+        <input id="inpItem"  name="" value="" placeholder="Item Name">
+        <input id="listID" name="" value="" placeholder="List Name">
+        <button id="btnItem" type="button">Create list item</button>
+        <br>
+
+        <h2>Delete list</h2>
+        <input id="inpID"  name="" value="" placeholder="list ID">
+        <button id="btnDelete" type="button">Delete list</button>
+        <br>
+
+        <h2>Delete item from List</h2>
+        <input id="Ditem" type="int" name="" value="" placeholder="Item ID">
+        <button id="btnDeleteItem" type="button">Delete Item</button>
+
+
+
+    </body>
+
+    <script>
+
+          var listname= document.getElementById("listname");
+          var listdecr = document.getElementById("listdecr");
+          var btnCreate = document.getElementById("btnCreate");
+
+          var inpID = document.getElementById("inpID");
+          var btnDelete = document.getElementById("btnDelete");
+
+          var inpItem = document.getElementById("inpItem");
+          var listID = document.getElementById("listID");
+          var btnItem = document.getElementById("btnItem");
+
+          var Ditem = document.getElementById("Ditem");
+          var btnDeleteItem = document.getElementById("btnDeleteItem");
+
+          //button create list  ---------------------------------
+          btnCreate.onclick = function() {
+
+            var token = JSON.parse(localStorage.getItem("logindata")).token;
+
+              var upload = JSON.stringify({
+                  list_name: listname.value,
+                  list_description: listdecr.value,
+              });
+
+              var url = "http://localhost:8080/thetodoer/lists/?token=" + token;
+
+              var cfg = {
+                  method: "POST",
+                  body: upload
+              }
+
+              superfetch(url, "json", succ, error, cfg);
+          }
+
+          //button create item ---------------------------------
+              btnItem.onclick = function() {
+
+                var token = JSON.parse(localStorage.getItem("logindata")).token;
+
+                  var upload = JSON.stringify({
+                      item_name: inpItem.value,
+                      list_name: listID.value
+                  });
+
+                  var url = "http://localhost:8080/thetodoer/lists/item/?token=" + token;
+
+                  var cfg = {
+                      method: "POST",
+                      body: upload
+                  }
+
+                  superfetch(url, "json", succ, error, cfg);
+              }
+
+
+
+      //button delete ---------------------------------
+        btnDelete.onclick = function() {
+
+          var token = JSON.parse(localStorage.getItem("logindata")).token;
+          var url = "http://localhost:8080/thetodoer/lists/?tasklistsid=" + inpID.value + "&token=" + token;
+
+          var deleteList = {
+            method: "DELETE",
+          }
+
+            superfetch(url, "json", delSucc, error, deleteList);
+        }
+
+
+
+    //button delete item ---------------------------------
+
+    btnDeleteItem.onclick = function() {
+
+          var token = JSON.parse(localStorage.getItem("logindata")).token;
+          var url = "http://localhost:8080/thetodoer/lists/item/?itemID=" + Ditem.value + "&token=" + token;
+
+          var deleteList = {
+            method: "DELETE",
+          }
+
+            superfetch(url, "json", delSucc, error, deleteList);
+        }
+
+
+
+
+        //delete success -------------------------------
+        function delSucc(data) {
+            console.log(data);
+        }
+
+        //error ----------------------------------------
+        function error(err) {
+            console.log(err);
+            }
+
+
+            //success --------------------------------------
+            function succ(data) {
+                console.log(data);
+            }
+
+
+    </script>
+
+    <style>
+
+          input, button, textarea, label {
+              width: 100%;
+              margin-bottom: 8px;
+              height: 40px;
+              font-size: 1.5em;
+              font-family: sans-serif;
+          }
+
+    </style>
+
+</html>
