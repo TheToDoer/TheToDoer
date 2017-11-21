@@ -1,19 +1,21 @@
 {
-  "name": "server_the_to_doer",
+  "name": "thetodoer",
   "version": "1.0.0",
-  "description": "server for the to doer app",
+  "description": "This is a task manager",
   "main": "server.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/TheToDoer/TheToDoer"
-  },
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "ellen",
+  "author": "sebastian shergill",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "debug": "^3.1.0",
     "express": "^4.16.2",
-    "pg": "7.3.0"
+    "jsonwebtoken": "^8.1.0",
+    "nodemon": "^1.12.1",
+    "pg-promise": "^7.3.1"
   }
 }
