@@ -2,6 +2,7 @@ const express = require('express');
 const app = express(); //server-app
 var port = process.env.PORT || 8080;
 
+app.use(express.static('public'))
 
 // global for all routes -------------------------
 app.use(function(req, res, next) {
@@ -21,5 +22,4 @@ app.use('/thetodoer/users/', users);
 
 //------------------------------------------------
 app.listen(port, function () {
-  console.log('Server listening on port '+ port +'!');
 });

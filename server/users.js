@@ -3,15 +3,25 @@ var router = express.Router();
 var db = require('./dbconnect'); //database
 var bodyParser = require('body-parser').text();
 var jwt = require("jsonwebtoken");
-var bcrypt = require('bcrypt');
 
-var secret = "hellothere";
+//crypto-------------------------------------
 
-//endpoint: POST users -----------------------------
+var CryptoJS = require("crypto-js");
+var key = "bottyja235%%dasa"; //burde puttes i en separat fil senere
+
+
+//endpoint: CREATE users -----------------------------
 router.post('/', bodyParser, function (req, res) {
 
+  var upload = JSON.parse(req.body);
+
+/*
     var upload = JSON.parse(req.body);  //should be sanitized
     var encrPassw = bcrypt.hashSync(upload.password, 10); //hash the password
+  //  var encrPassw = CryptoJS.AES.encrypt(upload.password, 'secret key 123');
+*/
+
+    var encrPassw = CryptoJS.AES.encrypt(upload.password, key);  //hash the password
 
     var sql = `PREPARE insert_user (int, text, text, text) AS
                 INSERT INTO users VALUES(DEFAULT, $2, $3, $4); EXECUTE insert_user
@@ -24,7 +34,7 @@ router.post('/', bodyParser, function (req, res) {
 
         //create the token
         var payload = {loginname: upload.loginname, fullname: upload.fullname};
-        var tok = jwt.sign(payload, secret, {expiresIn: "3h"});
+        var tok = jwt.sign(payload, key, {expiresIn: "3h"});
 
         //send logininfo + token to the client
         res.status(200).json({loginname: upload.loginname, fullname: upload.fullname, token: tok});
@@ -46,7 +56,9 @@ router.post('/auth/', bodyParser, function (req, res) {
                         SELECT * FROM users WHERE loginname=$1;
                         EXECUTE get_user('${upload.loginname}')`;
 
-                        db.any(sql).then(function(data) {
+
+
+        db.any(sql).then(function(data) {
 
         db.any("DEALLOCATE get_user");
 
@@ -57,11 +69,14 @@ router.post('/auth/', bodyParser, function (req, res) {
         } else {
 
             //check if the password is correct
-            var psw = upload.password;
-            var encPsw = data[0].password;
-            var result = bcrypt.compareSync(psw, encPsw);
+            // var psw = upload.password;
+             //  var result = bcrypt.compareSync(psw, encPsw);
+           var encPsw = data[0].password;
+           var decrypted = CryptoJS.AES.decrypt(encPsw, key);
+           decrypted = decrypted.toString(CryptoJS.enc.Utf8)
 
-            if (!result) {
+
+            if (!decrypted) {
                 res.status(403).json({msg: "Wrong password"}); //send
                 return; //quit
             }
@@ -69,7 +84,7 @@ router.post('/auth/', bodyParser, function (req, res) {
 
         //we have a valid user -> create the token
     var payload = {loginname: data[0].loginname, fullname: data[0].fullname};
-    var tok = jwt.sign(payload, secret, {expiresIn: "3h"});
+    var tok = jwt.sign(payload, key, {expiresIn: "3h"});
 
     //send logininfo + token to the client
     res.status(200).json({loginname: data[0].loginname, fullname: data[0].fullname, token: tok});

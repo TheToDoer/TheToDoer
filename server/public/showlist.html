@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Show List</title>
+    <script src="js/superfetch2.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+
+    <ul>
+      <li><a class="active" href="showlist.html">To Do List</a></li>
+      <li><a   href="createlist.html">Create/delete list</a></li>
+      <li><a href="index.html">Login</a></li>
+      <li><a  href="createuser.html">Create User</a></li>
+    </ul>
+<!--
+<div>
+      <h2>Delete item from List</h2>
+      <input id="Ditem" type="text" name="" value="" placeholder="Item Name">
+      <input id="Dlist" type="text" name="" value="" placeholder="Item List">
+      <button id="btnDeleteItem" type="button">Delete Item</button>
+</div>
+      <br>
+
+      <h2 id="txtOut"></h2>
+
+<div>
+      <h2>Create list item</h2>
+      <input id="inpItem"  name="" value="" placeholder="Item Name">
+      <input id="listID" name="" value="" placeholder="List Name">
+      <button id="btnItem" type="button">Create list item</button>
+</div>
+
+      <br>
+-->
+
+<div class="createList">
+<div class="form">
+    <input id="Ditem" type="text" name="" value="" placeholder="Item Name">
+    <input id="Dlist" type="text" name="" value="" placeholder="Item List">
+    <button id="btnDeleteItem" type="button">Delete Item</button>
+</div>
+</div>
+
+<div class="createList">
+<div class="form">
+    <input id="inpItem"  name="" value="" placeholder="Item Name">
+    <input id="listID" name="" value="" placeholder="List Name">
+    <input id="inpDate"  name="" value="" placeholder="Due Date year-mm-dd">
+    <input id="inpTime" name="" value="" placeholder="Due Time hh:mm:ss">
+    <button id="btnItem" type="button">Create list item</button>
+</div>
+</div>
+
+
+
+  </body>
+
+  <script>
+
+      var Ditem = document.getElementById("Ditem");
+      var Dlist = document.getElementById("Dlist");
+      var btnDeleteItem = document.getElementById("btnDeleteItem");
+
+      var inpItem = document.getElementById("inpItem");
+      var listID = document.getElementById("listID");
+      var btnItem = document.getElementById("btnItem");
+
+      var txtOut = document.getElementById("txtOut");
+
+      var token = JSON.parse(localStorage.getItem("logindata")).token;
+      var url = "https://todoertest2.herokuapp.com/thetodoer/lists/?token=" + token;
+
+
+      superfetch(url, "json", succ, error);
+
+// Delete item from list ---------------------------------------------
+        btnDeleteItem.onclick = function() {
+
+          var token = JSON.parse(localStorage.getItem("logindata")).token;
+          var url = "https://todoertest2.herokuapp.com/thetodoer/lists/item/?ItemName=" + Ditem.value + "&ListName=" + Dlist.value + "&token=" + token;
+
+          var deleteList = {
+            method: "DELETE",
+          }
+
+            superfetch(url, "json", delSucc, error, deleteList);
+        }
+
+  //Create item on onlist ---------------------------------
+        btnItem.onclick = function() {
+
+          var token = JSON.parse(localStorage.getItem("logindata")).token;
+
+            var upload = JSON.stringify({
+                item_name: inpItem.value,
+                list_name: listID.value,
+                duedate: inpDate.value,
+                duetime: inpTime.value,
+            });
+
+            var url = "https://todoertest2.herokuapp.com/thetodoer/lists/item/?token=" + token;
+
+            var cfg = {
+                method: "POST",
+                body: upload
+            }
+
+            superfetch(url, "json", succ, error, cfg);
+
+            console.log(inpItem.value + " er lagt til i " + listID.value);
+
+        }
+
+
+  //success --------------------------------------
+  function succ(data) {
+
+
+
+
+    var listenavn = data[0].list_name;
+    var listdesc = data[0].list_description;
+
+    var d = new Date(data[0].duedate).toDateString();
+    var div = document.createElement("div");
+    div.className = "show";
+    div.innerHTML += "<h2> List Name: " + data[0].list_name + "</h2>";
+    div.innerHTML += "<p> Description: " + data[0].list_description + "</p>";
+    div.innerHTML += "<h3> Item: " + data[0].item_name + "</h3>";
+    div.innerHTML += "<h3> Item due: " + d + "</h3>";
+    div.innerHTML += "<h3> Item due Time: " + data[0].duetime + "</h3>";
+    var hr = document.createElement("hr");
+    document.body.appendChild(div);
+    document.body.appendChild(hr);
+
+    for (var i = 1; i < data.length; i++) {
+
+     var d = new Date(data[i].duedate).toDateString();
+
+        var div = document.createElement("div");
+        div.className = "show";
+        if (data[i].list_name != listenavn) {  //Sjekker listenavn
+          div.innerHTML += "<h2> List Name: " + data[i].list_name + "</h2>";
+          listenavn = data[i].list_name;
+        }
+        if (data[i].list_description != listdesc) {  //Sjekker listenavn
+          div.innerHTML += "<p> Description: " + data[i].list_description + "</p>";
+          listdesc = data[i].list_description;
+        }
+        div.innerHTML += "<h3> Item: " + data[i].item_name + "</h3>";
+        div.innerHTML += "<h3> Item due: " + d + "</h3>";
+        div.innerHTML += "<h3> Item due Time: " + data[i].duetime + "</h3>";
+        var hr = document.createElement("hr");
+        document.body.appendChild(div);
+        document.body.appendChild(hr);
+
+      console.log(data);
+  }
+
+}
+
+
+
+    //delete success -------------------------------
+    function delSucc(data) {
+        console.log(data);
+
+    }
+
+
+      //error ----------------------------------------
+      function error(err) {
+          console.log(err);
+      }
+
+</script>
+</html>

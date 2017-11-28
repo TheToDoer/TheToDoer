@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>TheToDoer</title>
+        <script src="js/superfetch2.js"></script>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+
+      <ul>
+        <li><a href="showlist.html">To Do List</a></li>
+        <li><a  class="active" href="createlist.html">Create/delete list</a></li>
+        <li><a href="index.html">Login</a></li>
+        <li><a  href="createuser.html">Create User</a></li>
+      </ul>
+<!--
+        <h2>Create list</h2>
+        <input id="listname" placeholder="list name">
+        <h2>Description</h2>
+        <input id="listdecr" placeholder="list name">
+        <button id="btnCreate">Create new list</button>
+        <br>
+        <h2 id="txtOut" value=""></h2>
+
+
+        <br>
+        <h2>Delete list</h2>
+        <input id="inpID"  name="" value="" placeholder="List Name">
+        <button id="btnDelete" type="button">Delete list</button>
+        <br>
+        <h2 id="txtOut2" value=""></h2>
+    -->
+
+    <div class="createList">
+    <div class="form">
+        <input id="listname" placeholder="list name">
+        <input id="listdecr" placeholder="list name">
+        <button id="btnCreate">Create new list</button>
+        <h2 id="txtOut" value=""></h2>
+    </div>
+  </div>
+
+
+  <div class="createList2">
+  <div class="form">
+    <form class="login-form">
+      <input id="inpID"  name="" value="" placeholder="List Name">
+      <button id="btnDelete" type="button">Delete list</button>
+      <h2 id="txtOut2" value=""></h2>
+    </form>
+  </div>
+</div>
+
+
+
+
+    </body>
+
+    <script>
+
+          var listname= document.getElementById("listname");
+          var listdecr = document.getElementById("listdecr");
+          var btnCreate = document.getElementById("btnCreate");
+
+          var inpID = document.getElementById("inpID");
+          var btnDelete = document.getElementById("btnDelete");
+
+
+  //button create list  ---------------------------------
+          btnCreate.onclick = function() {
+
+            var token = JSON.parse(localStorage.getItem("logindata")).token;
+
+              var upload = JSON.stringify({
+                  list_name: listname.value,
+                  list_description: listdecr.value,
+              });
+
+              var url = "https://todoertest2.herokuapp.com/thetodoer/lists/?token=" + token;
+
+              var cfg = {
+                  method: "POST",
+                  body: upload
+              }
+
+              superfetch(url, "json", succ, error, cfg);
+
+          }
+
+
+
+//button delete ---------------------------------
+        btnDelete.onclick = function() {
+
+          var token = JSON.parse(localStorage.getItem("logindata")).token;
+        //  var url = "http://localhost:8080/thetodoer/lists/?tasklistsid=" + inpID.value + "&token=" + token;
+          var url = "https://todoertest2.herokuapp.com/thetodoer/lists/?listname=" + inpID.value + "&token=" + token;
+
+          var deleteList = {
+            method: "DELETE",
+          }
+
+            superfetch(url, "json", delSucc, delErr, deleteList);
+        }
+
+
+
+        //delete success -------------------------------
+        function delSucc(data) {
+            console.log(data);
+              document.getElementById("txtOut2").innerHTML = inpID.value + " list deleted!";
+        }
+
+        //error ----------------------------------------
+        function delErr(err) {
+            console.log(err);
+
+            }
+
+        //error ----------------------------------------
+        function error(err) {
+            console.log(err);
+            document.getElementById("txtOut").innerHTML = "Ops, something went wrong while creating your list";
+        }
+
+        //success --------------------------------------
+        function succ(data) {
+            console.log(data);
+            document.getElementById("txtOut").innerHTML = listname.value + " list created!";
+        }
+
+
+    </script>
+
+</html>
