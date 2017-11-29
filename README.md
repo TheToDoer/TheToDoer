@@ -17,10 +17,9 @@ Så 3x3 = 9. Vi kan ikke sette mindre enn 0.5 story point per oppgave.
 Project Board:
 https://trello.com/b/of96DLTb/feature-map-to-do-list
 
-Heroku Bruker:
-Brukernavn: seb_norge@hotmail.com
+Tidligere Heroku app (ikke den som brukes) :http://thetodoer-app.herokuapp.com/
 
+Fungerende heroku app: https://thetodoerapp.herokuapp.com/
 
-Heroku-app:http://thetodoer-app.herokuapp.com/
 
 
