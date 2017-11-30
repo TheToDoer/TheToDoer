@@ -125,7 +125,6 @@ router.post('/item', bodyParser, function (req, res) {
 
 
 //delete list-----------------------------------------------
-
 router.delete('/', function (req, res) {
 
     var upload = req.query.listname;

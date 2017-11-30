@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>TheToDoer</title>
-        <script src="js/superfetch2.js"></script>
+        <script src="js/fetch.js"></script>
         <link rel="stylesheet" href="css/style.css">
     </head>
   <body>
@@ -22,7 +22,7 @@
      </div>
 
       <div class="createList">
-        <div class="form">
+       <div class="form">
             <h2>Create new list</h2>
             <input id="listname" placeholder="List Name">
             <input id="listdecr" placeholder="List Description">
@@ -97,7 +97,6 @@
         btnDelete.onclick = function() {
 
           var token = JSON.parse(localStorage.getItem("logindata")).token;
-        //  var url = "http://localhost:8080/thetodoer/lists/?tasklistsid=" + inpID.value + "&token=" + token;
           var url = "https://thetodoerapp.herokuapp.com/thetodoer/lists/?listname=" + inpID.value + "&token=" + token;
 
           var deleteList = {
@@ -135,7 +134,6 @@
         //error ----------------------------------------
         function error(err) {
             console.log(err);
-            document.getElementById("txtOut").innerHTML = "Ops, something went wrong while creating your list";
         }
 
         //success --------------------------------------
