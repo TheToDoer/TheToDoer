@@ -1,14 +1,14 @@
 **Base URL**
-https://thetodoer-app.herokuapp.com
+https://thetodoerapp.herokuapp.com/
 
-**Hvordan skape en ny liste**
-POST /list/:navn -> end point som skaper en liste med navn :name og retunerer ny liste full struktur (link ny id).
+**Vise lister med tasks**
+GET /list/ -> Hviser alle listene med items.
 
-**Hvordan få tak på en liste**
-GET /list/:id -> end point som retunerer en liste basert på id
+**Viser bare dine lister**
+GET /list/yourlist list-> end point som retunerer en liste basert på id
 
-**Hvordan finne liste som tilhører bestemt deadline**
-GET /list/:id/items/:deadline
+**Poster tasks, enkelte list items**
+POST /list/item
 
-**Hvordan sette filter på en liste**
-PUT /list/:id/filter
+**API for å logge inn**
+POST /users/auth
