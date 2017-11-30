@@ -1,4 +1,4 @@
-var express = require('express');
+var express = require('express')
 var router = express.Router();
 var db = require('./dbconnect'); //database
 var bodyParser = require('body-parser').text();
@@ -14,12 +14,6 @@ var key = "bottyja235%%dasa"; //burde puttes i en separat fil senere
 router.post('/', bodyParser, function (req, res) {
 
   var upload = JSON.parse(req.body);
-
-/*
-    var upload = JSON.parse(req.body);  //should be sanitized
-    var encrPassw = bcrypt.hashSync(upload.password, 10); //hash the password
-  //  var encrPassw = CryptoJS.AES.encrypt(upload.password, 'secret key 123');
-*/
 
     var encrPassw = CryptoJS.AES.encrypt(upload.password, key);  //hash the password
 
@@ -95,6 +89,7 @@ router.post('/auth/', bodyParser, function (req, res) {
 
     });
 });
+
 
 //export module -------------------------------------
 module.exports = router;

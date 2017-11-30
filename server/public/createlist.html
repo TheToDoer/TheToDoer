@@ -6,69 +6,73 @@
         <script src="js/superfetch2.js"></script>
         <link rel="stylesheet" href="css/style.css">
     </head>
-    <body>
+  <body>
 
       <ul>
         <li><a href="showlist.html">To Do List</a></li>
         <li><a  class="active" href="createlist.html">Create/delete list</a></li>
         <li><a href="index.html">Login</a></li>
         <li><a  href="createuser.html">Create User</a></li>
+        <button class="logout" id="btnLogout" type="button" name="button">Log out</button>
       </ul>
-<!--
-        <h2>Create list</h2>
-        <input id="listname" placeholder="list name">
-        <h2>Description</h2>
-        <input id="listdecr" placeholder="list name">
-        <button id="btnCreate">Create new list</button>
-        <br>
-        <h2 id="txtOut" value=""></h2>
+      <h3 id=loggedIn></h3>
+
+      <div id="showlister" class="show">
+      <h2>Your lists:</h2>
+     </div>
+
+      <div class="createList">
+        <div class="form">
+            <h2>Create new list</h2>
+            <input id="listname" placeholder="List Name">
+            <input id="listdecr" placeholder="List Description">
+            <button id="btnCreate">Create new list</button>
+            <h2 id="txtOut" value=""></h2>
+        </div>
+      </div>
 
 
-        <br>
-        <h2>Delete list</h2>
-        <input id="inpID"  name="" value="" placeholder="List Name">
-        <button id="btnDelete" type="button">Delete list</button>
-        <br>
-        <h2 id="txtOut2" value=""></h2>
-    -->
+      <div class="createList2">
+        <div class="form">
+            <h2>Delete list</h2>
+            <input id="inpID"  name="" value="" placeholder="List Name">
+            <button id="btnDelete" type="button">Delete list</button>
+            <h2 id="txtOut2" value=""></h2>
+        </div>
+      </div>
 
-    <div class="createList">
-    <div class="form">
-        <input id="listname" placeholder="list name">
-        <input id="listdecr" placeholder="list name">
-        <button id="btnCreate">Create new list</button>
-        <h2 id="txtOut" value=""></h2>
-    </div>
-  </div>
-
-
-  <div class="createList2">
-  <div class="form">
-    <form class="login-form">
-      <input id="inpID"  name="" value="" placeholder="List Name">
-      <button id="btnDelete" type="button">Delete list</button>
-      <h2 id="txtOut2" value=""></h2>
-    </form>
-  </div>
-</div>
-
-
-
-
-    </body>
+  </body>
 
     <script>
 
+          var btnLogout = document.getElementById("btnLogout");
           var listname= document.getElementById("listname");
           var listdecr = document.getElementById("listdecr");
           var btnCreate = document.getElementById("btnCreate");
-
+          var showlister  = document.getElementById("showlister");
           var inpID = document.getElementById("inpID");
           var btnDelete = document.getElementById("btnDelete");
+          var logindata = JSON.parse(localStorage.getItem("logindata"));
+
+          if(logindata == null){
+            document.getElementById("loggedIn").innerHTML ="Your not logged in. Please log in or create a user";
+
+            } else{
+              document.getElementById("loggedIn").innerHTML ="Logged in as " + logindata.loginname;
+          }
+
+          var token = JSON.parse(localStorage.getItem("logindata")).token;
+          var url2 = "https://thetodoerapp.herokuapp.com/thetodoer/lists/yourlist/?token=" + token
+          superfetch(url2, "json", listsucc ,error);
+
 
 
   //button create list  ---------------------------------
           btnCreate.onclick = function() {
+
+            if (listname.value == "") {
+              return;
+            }
 
             var token = JSON.parse(localStorage.getItem("logindata")).token;
 
@@ -77,7 +81,7 @@
                   list_description: listdecr.value,
               });
 
-              var url = "https://todoertest2.herokuapp.com/thetodoer/lists/?token=" + token;
+              var url = "https://thetodoerapp.herokuapp.com/thetodoer/lists/?token=" + token;
 
               var cfg = {
                   method: "POST",
@@ -85,17 +89,16 @@
               }
 
               superfetch(url, "json", succ, error, cfg);
+              superfetch(url2, "json", listsucc ,error);
 
           }
-
-
 
 //button delete ---------------------------------
         btnDelete.onclick = function() {
 
           var token = JSON.parse(localStorage.getItem("logindata")).token;
         //  var url = "http://localhost:8080/thetodoer/lists/?tasklistsid=" + inpID.value + "&token=" + token;
-          var url = "https://todoertest2.herokuapp.com/thetodoer/lists/?listname=" + inpID.value + "&token=" + token;
+          var url = "https://thetodoerapp.herokuapp.com/thetodoer/lists/?listname=" + inpID.value + "&token=" + token;
 
           var deleteList = {
             method: "DELETE",
@@ -104,12 +107,23 @@
             superfetch(url, "json", delSucc, delErr, deleteList);
         }
 
+        function listsucc(data) {
 
+          showlister.innerHTML = "<h2> Your lists: </h2>";
 
-        //delete success -------------------------------
+          for (var i = 0; i < data.length; i++) {
+
+              var div2 = document.createElement("div2");
+              div2.innerHTML += "<h3>" + data[i].list_name + "</h3>";
+              showlister.appendChild(div2);
+        }
+    }
+
+//delete success -------------------------------
         function delSucc(data) {
             console.log(data);
               document.getElementById("txtOut2").innerHTML = inpID.value + " list deleted!";
+              superfetch(url2, "json", listsucc ,error);
         }
 
         //error ----------------------------------------
@@ -128,7 +142,14 @@
         function succ(data) {
             console.log(data);
             document.getElementById("txtOut").innerHTML = listname.value + " list created!";
+            //window.location.reload();
         }
+
+        btnLogout.onclick = function() {
+            document.getElementById("loggedIn").innerHTML ="You logged out of " + logindata.loginname;
+            localStorage.clear();
+        }
+
 
 
     </script>

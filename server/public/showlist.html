@@ -8,173 +8,207 @@
   </head>
   <body>
 
-
     <ul>
       <li><a class="active" href="showlist.html">To Do List</a></li>
       <li><a   href="createlist.html">Create/delete list</a></li>
       <li><a href="index.html">Login</a></li>
       <li><a  href="createuser.html">Create User</a></li>
+      <button class="logout" id="btnLogout" type="button" name="button">Log out</button>
     </ul>
-<!--
-<div>
-      <h2>Delete item from List</h2>
-      <input id="Ditem" type="text" name="" value="" placeholder="Item Name">
-      <input id="Dlist" type="text" name="" value="" placeholder="Item List">
-      <button id="btnDeleteItem" type="button">Delete Item</button>
-</div>
-      <br>
+    <h3 id="loggedIn"></h3>
+  <!--  <h3 id="lister"></h3> -->
 
-      <h2 id="txtOut"></h2>
+    <div id="showlister" class="show">
+    <h2>Your lists:</h2>
+   </div>
 
-<div>
-      <h2>Create list item</h2>
-      <input id="inpItem"  name="" value="" placeholder="Item Name">
-      <input id="listID" name="" value="" placeholder="List Name">
-      <button id="btnItem" type="button">Create list item</button>
-</div>
+   <div class="createList">
+   <div class="form">
+       <h2>Create list item</h2>
+       <input id="inpItem"  name="" value="" placeholder="To do">
+       <input id="listID" name="" value="" placeholder="Name of the list your adding the todo to">
+       <input id="year" placeholder="Due year" />
+       <select class="months" id="inpDate">
+       <option value="0">Januar</option>
+       <option value="1">Februar</option>
+       <option value="2">Mars</option>
+       <option value="3">April</option>
+       <option value="4">Mai</option>
+       <option value="5">Juni</option>
+       <option value="6">Juli</option>
+       <option value="7">August</option>
+       <option value="8">September</option>
+       <option value="9">Oktober</option>
+       <option value="10">November</option>
+       <option value="11">Desember</option>
+       </select>
+       <input id="day" placeholder="Due date" />
+       <input id="inpTime" name="" value="" placeholder="Due time - hh:mm:ss">
+       <button id="btnItem" type="button">Create list item</button>
+       <h2 id="txtOut"></h2>
+   </div>
+   </div>
 
-      <br>
--->
-
-<div class="createList">
-<div class="form">
-    <input id="Ditem" type="text" name="" value="" placeholder="Item Name">
-    <input id="Dlist" type="text" name="" value="" placeholder="Item List">
-    <button id="btnDeleteItem" type="button">Delete Item</button>
-</div>
-</div>
-
-<div class="createList">
-<div class="form">
-    <input id="inpItem"  name="" value="" placeholder="Item Name">
-    <input id="listID" name="" value="" placeholder="List Name">
-    <input id="inpDate"  name="" value="" placeholder="Due Date year-mm-dd">
-    <input id="inpTime" name="" value="" placeholder="Due Time hh:mm:ss">
-    <button id="btnItem" type="button">Create list item</button>
-</div>
-</div>
-
-
+    <div class="createList">
+    <div class="form">
+        <h2>Delete list item</h2>
+        <input id="Ditem" type="text" name="" value="" placeholder="Item Name">
+        <input id="Dlist" type="text" name="" value="" placeholder="Name of list you are deleting item from">
+        <button id="btnDeleteItem" type="button">Delete Item</button>
+    </div>
+    </div>
 
   </body>
 
-  <script>
+ <script>
 
-      var Ditem = document.getElementById("Ditem");
-      var Dlist = document.getElementById("Dlist");
-      var btnDeleteItem = document.getElementById("btnDeleteItem");
+        var Ditem = document.getElementById("Ditem");
+        var Dlist = document.getElementById("Dlist");
+        var btnDeleteItem = document.getElementById("btnDeleteItem");
+        var btnLogout = document.getElementById("btnLogout");
+        var inpItem = document.getElementById("inpItem");
+        var listID = document.getElementById("listID");
+        var btnItem = document.getElementById("btnItem");
+        var txtOut = document.getElementById("txtOut");
+        var day = document.getElementById("day");
+        var inpDate = document.getElementById("inpDate");
+        var year  = document.getElementById("year");
+        var showlister  = document.getElementById("showlister");
 
-      var inpItem = document.getElementById("inpItem");
-      var listID = document.getElementById("listID");
-      var btnItem = document.getElementById("btnItem");
+        var logindata = JSON.parse(localStorage.getItem("logindata"));
+        if(logindata == null){
+          document.getElementById("loggedIn").innerHTML ="Your not logged in. Please log in or create a user";
 
-      var txtOut = document.getElementById("txtOut");
-
-      var token = JSON.parse(localStorage.getItem("logindata")).token;
-      var url = "https://todoertest2.herokuapp.com/thetodoer/lists/?token=" + token;
-
-
-      superfetch(url, "json", succ, error);
-
-// Delete item from list ---------------------------------------------
-        btnDeleteItem.onclick = function() {
-
-          var token = JSON.parse(localStorage.getItem("logindata")).token;
-          var url = "https://todoertest2.herokuapp.com/thetodoer/lists/item/?ItemName=" + Ditem.value + "&ListName=" + Dlist.value + "&token=" + token;
-
-          var deleteList = {
-            method: "DELETE",
+          } else{
+            document.getElementById("loggedIn").innerHTML ="Logged in as " + logindata.loginname;
           }
 
-            superfetch(url, "json", delSucc, error, deleteList);
-        }
+        var token = JSON.parse(localStorage.getItem("logindata")).token;
+        var url = "https://thetodoerapp.herokuapp.com/thetodoer/lists/?token=" + token;
+        var url2 = "https://thetodoerapp.herokuapp.com/thetodoer/lists/yourlist/?token=" + token;
 
-  //Create item on onlist ---------------------------------
-        btnItem.onclick = function() {
 
-          var token = JSON.parse(localStorage.getItem("logindata")).token;
+        superfetch(url, "json", succ, error);
+        superfetch(url2, "json", listsucc ,error);
 
-            var upload = JSON.stringify({
-                item_name: inpItem.value,
-                list_name: listID.value,
-                duedate: inpDate.value,
-                duetime: inpTime.value,
-            });
+  // Delete item from list ---------------------------------------------
+          btnDeleteItem.onclick = function() {
 
-            var url = "https://todoertest2.herokuapp.com/thetodoer/lists/item/?token=" + token;
+            var token = JSON.parse(localStorage.getItem("logindata")).token;
+            var url = "https://thetodoerapp.herokuapp.com/thetodoer/lists/item/?ItemName=" + Ditem.value + "&ListName=" + Dlist.value + "&token=" + token;
 
-            var cfg = {
-                method: "POST",
-                body: upload
+            var deleteList = {
+              method: "DELETE",
             }
 
-            superfetch(url, "json", succ, error, cfg);
+              superfetch(url, "json", delSucc, error, deleteList);
+          }
 
-            console.log(inpItem.value + " er lagt til i " + listID.value);
+    //Create item on onlist ---------------------------------
+          btnItem.onclick = function() {
 
-        }
+            if (inpItem.value == "") {
+              return;
+            }
 
-
-  //success --------------------------------------
-  function succ(data) {
-
-
-
-
-    var listenavn = data[0].list_name;
-    var listdesc = data[0].list_description;
-
-    var d = new Date(data[0].duedate).toDateString();
-    var div = document.createElement("div");
-    div.className = "show";
-    div.innerHTML += "<h2> List Name: " + data[0].list_name + "</h2>";
-    div.innerHTML += "<p> Description: " + data[0].list_description + "</p>";
-    div.innerHTML += "<h3> Item: " + data[0].item_name + "</h3>";
-    div.innerHTML += "<h3> Item due: " + d + "</h3>";
-    div.innerHTML += "<h3> Item due Time: " + data[0].duetime + "</h3>";
-    var hr = document.createElement("hr");
-    document.body.appendChild(div);
-    document.body.appendChild(hr);
-
-    for (var i = 1; i < data.length; i++) {
-
-     var d = new Date(data[i].duedate).toDateString();
-
-        var div = document.createElement("div");
-        div.className = "show";
-        if (data[i].list_name != listenavn) {  //Sjekker listenavn
-          div.innerHTML += "<h2> List Name: " + data[i].list_name + "</h2>";
-          listenavn = data[i].list_name;
-        }
-        if (data[i].list_description != listdesc) {  //Sjekker listenavn
-          div.innerHTML += "<p> Description: " + data[i].list_description + "</p>";
-          listdesc = data[i].list_description;
-        }
-        div.innerHTML += "<h3> Item: " + data[i].item_name + "</h3>";
-        div.innerHTML += "<h3> Item due: " + d + "</h3>";
-        div.innerHTML += "<h3> Item due Time: " + data[i].duetime + "</h3>";
-        var hr = document.createElement("hr");
-        document.body.appendChild(div);
-        document.body.appendChild(hr);
-
-      console.log(data);
-  }
-
-}
+            var d = new Date(year.value, inpDate.value, day.value).toDateString();
 
 
+              var upload = JSON.stringify({
+                  item_name: inpItem.value,
+                  list_name: listID.value,
+                  duedate: d,
+                  duetime: inpTime.value,
+              });
 
-    //delete success -------------------------------
-    function delSucc(data) {
-        console.log(data);
+              var url = "https://thetodoerapp.herokuapp.com/thetodoer/lists/item/?token=" + token;
 
-    }
+              var cfg = {
+                  method: "POST",
+                  body: upload
+              }
+
+              superfetch(url, "json", succ, error, cfg);
+
+              console.log(inpItem.value + " er lagt til i " + listID.value);
+
+              document.getElementById("txtOut").innerHTML = inpItem.value + " created!";
+              //window.location.reload();
+
+          }
+
+          //success --------------------------------------
+              function succ(data) {
+
+                var listenavn = data[0].list_name;
+                var listdesc = data[0].list_description;
+
+                var d = new Date(data[0].duedate).toDateString();
 
 
+                var div = document.createElement("div");
+                div.className = "show";
+                div.innerHTML += "<h2> List Name: " + data[0].list_name + "</h2>";
+                div.innerHTML += "<p> Description: " + data[0].list_description + "</p>";
+                div.innerHTML += "<h3> Item: " + data[0].item_name + "</h3>";
+                div.innerHTML += "<h3> Item due: " + d + "</h3>";
+                div.innerHTML += "<h3> Item due Time: " + data[0].duetime + "</h3>";
+                var br = document.createElement("br");
+                document.body.appendChild(div);
+                document.body.appendChild(br);
+
+                for (var i = 1; i < data.length; i++) {
+
+                 var d = new Date(data[i].duedate).toDateString();
+
+                    var div = document.createElement("div");
+                    div.className = "show";
+                    if (data[i].list_name != listenavn) {  //Sjekker listenavn
+                      div.innerHTML += "<h2> List Name: " + data[i].list_name + "</h2>";
+                      listenavn = data[i].list_name;
+                    }
+                    if (data[i].list_description != listdesc) {  //Sjekker list beskrivelse
+                      div.innerHTML += "<p> Description: " + data[i].list_description + "</p>";
+                      listdesc = data[i].list_description;
+                    }
+                    div.innerHTML += "<h3> Item: " + data[i].item_name + "</h3>";
+                    div.innerHTML += "<h3> Item due: " + d + "</h3>";
+                    div.innerHTML += "<h3> Item due Time: " + data[i].duetime + "</h3>";
+                    var br = document.createElement("br");
+                    document.body.appendChild(div);
+                    document.body.appendChild(br);
+
+              }
+
+            }
+
+              function listsucc(data) {
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var div2 = document.createElement("div2");
+                    div2.innerHTML += "<h3>" + data[i].list_name + "</h3>";
+                    showlister.appendChild(div2);
+              }
+          }
+
+
+      //delete success -------------------------------
+          function delSucc(data) {
+              console.log(data);
+              window.location.reload();
+
+          }
       //error ----------------------------------------
-      function error(err) {
-          console.log(err);
-      }
+          function error(err) {
+              console.log(err);
+          }
 
-</script>
+          btnLogout.onclick = function() {
+              document.getElementById("loggedIn").innerHTML ="You logged out of " + logindata.loginname;
+              localStorage.clear();
+          }
+
+  </script>
+
 </html>
