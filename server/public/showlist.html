@@ -24,8 +24,8 @@
 
    <div class="createList">
        <div class="form">
-           <h2>Create list item</h2>
-           <input id="inpItem"  name="" value="" placeholder="To do">
+           <h2>Create Task</h2>
+           <input id="inpItem"  name="" value="" placeholder="Task name">
            <input id="listID" name="" value="" placeholder="Name of the list your adding the todo to">
            <input id="year" placeholder="Due year" />
            <select class="months" id="inpDate">
@@ -51,9 +51,9 @@
 
     <div class="createList">
         <div class="form">
-            <h2>Delete list item</h2>
-            <input id="Ditem" type="text" name="" value="" placeholder="Item Name">
-            <input id="Dlist" type="text" name="" value="" placeholder="Name of list you are deleting item from">
+            <h2>Delete Task</h2>
+            <input id="Ditem" type="text" name="" value="" placeholder="Task Name">
+            <input id="Dlist" type="text" name="" value="" placeholder="Name of list you are deleting the task from">
             <button id="btnDeleteItem" type="button">Delete Item</button>
         </div>
     </div>
@@ -76,7 +76,7 @@
         var showlister  = document.getElementById("showlister");
 
         var logindata = JSON.parse(localStorage.getItem("logindata"));
-        
+
         if(logindata == null){
           document.getElementById("loggedIn").innerHTML ="Your not logged in. Please log in or create a user";
 
