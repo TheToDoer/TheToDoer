@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Show List</title>
-    <script src="js/superfetch2.js"></script>
+    <script src="js/fetch.js"></script>
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
@@ -16,46 +16,46 @@
       <button class="logout" id="btnLogout" type="button" name="button">Log out</button>
     </ul>
     <h3 id="loggedIn"></h3>
-  <!--  <h3 id="lister"></h3> -->
+
 
     <div id="showlister" class="show">
     <h2>Your lists:</h2>
    </div>
 
    <div class="createList">
-   <div class="form">
-       <h2>Create list item</h2>
-       <input id="inpItem"  name="" value="" placeholder="To do">
-       <input id="listID" name="" value="" placeholder="Name of the list your adding the todo to">
-       <input id="year" placeholder="Due year" />
-       <select class="months" id="inpDate">
-       <option value="0">Januar</option>
-       <option value="1">Februar</option>
-       <option value="2">Mars</option>
-       <option value="3">April</option>
-       <option value="4">Mai</option>
-       <option value="5">Juni</option>
-       <option value="6">Juli</option>
-       <option value="7">August</option>
-       <option value="8">September</option>
-       <option value="9">Oktober</option>
-       <option value="10">November</option>
-       <option value="11">Desember</option>
-       </select>
-       <input id="day" placeholder="Due date" />
-       <input id="inpTime" name="" value="" placeholder="Due time - hh:mm:ss">
-       <button id="btnItem" type="button">Create list item</button>
-       <h2 id="txtOut"></h2>
-   </div>
+       <div class="form">
+           <h2>Create list item</h2>
+           <input id="inpItem"  name="" value="" placeholder="To do">
+           <input id="listID" name="" value="" placeholder="Name of the list your adding the todo to">
+           <input id="year" placeholder="Due year" />
+           <select class="months" id="inpDate">
+           <option value="0">Januar</option>
+           <option value="1">Februar</option>
+           <option value="2">Mars</option>
+           <option value="3">April</option>
+           <option value="4">Mai</option>
+           <option value="5">Juni</option>
+           <option value="6">Juli</option>
+           <option value="7">August</option>
+           <option value="8">September</option>
+           <option value="9">Oktober</option>
+           <option value="10">November</option>
+           <option value="11">Desember</option>
+           </select>
+           <input id="day" placeholder="Due date" />
+           <input id="inpTime" name="" value="" placeholder="Due time - hh:mm:ss">
+           <button id="btnItem" type="button">Create list item</button>
+           <h2 id="txtOut"></h2>
+       </div>
    </div>
 
     <div class="createList">
-    <div class="form">
-        <h2>Delete list item</h2>
-        <input id="Ditem" type="text" name="" value="" placeholder="Item Name">
-        <input id="Dlist" type="text" name="" value="" placeholder="Name of list you are deleting item from">
-        <button id="btnDeleteItem" type="button">Delete Item</button>
-    </div>
+        <div class="form">
+            <h2>Delete list item</h2>
+            <input id="Ditem" type="text" name="" value="" placeholder="Item Name">
+            <input id="Dlist" type="text" name="" value="" placeholder="Name of list you are deleting item from">
+            <button id="btnDeleteItem" type="button">Delete Item</button>
+        </div>
     </div>
 
   </body>
@@ -76,6 +76,7 @@
         var showlister  = document.getElementById("showlister");
 
         var logindata = JSON.parse(localStorage.getItem("logindata"));
+        
         if(logindata == null){
           document.getElementById("loggedIn").innerHTML ="Your not logged in. Please log in or create a user";
 

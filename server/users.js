@@ -63,8 +63,6 @@ router.post('/auth/', bodyParser, function (req, res) {
         } else {
 
             //check if the password is correct
-            // var psw = upload.password;
-             //  var result = bcrypt.compareSync(psw, encPsw);
            var encPsw = data[0].password;
            var decrypted = CryptoJS.AES.decrypt(encPsw, key);
            decrypted = decrypted.toString(CryptoJS.enc.Utf8)
