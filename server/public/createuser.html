@@ -8,64 +8,85 @@
   </head>
   <body>
 
-    <ul>
-      <li><a href="showlist.html">To Do List</a></li>
-      <li><a  href="createlist.html">Create/delete list</a></li>
-      <li><a href="index.html">Login</a></li>
-      <li><a class="active" href="createuser.html">Create User</a></li>
-    </ul>
+        <ul>
+          <li><a href="showlist.html">To Do List</a></li>
+          <li><a  href="createlist.html">Create/delete list</a></li>
+          <li><a href="index.html">Login</a></li>
+          <li><a class="active" href="createuser.html">Create User</a></li>
+          <button class="logout" id="btnLogout" type="button" name="button">Log out</button>
+        </ul>
+        <h3 id=loggedIn></h3>
 
 
-  <div class="login-page">
-    <div class="form">
-        <input id="inpLoginname" type="text" name="" value="" placeholder="Username" required/>
-        <input id="inpPassword" type="password" name="" value="" placeholder="Password" required/>
-        <input id="inpFullname" type="text" name="" value="" placeholder="Full Name" required/>
-        <button id="btnCreate" type="button" name="button">Create User</button>
-    </div>
-  </div>
+      <div class="login-page">
+        <div class="form">
+            <input id="inpLoginname" type="text" name="" value="" placeholder="Username">
+            <input id="inpPassword" type="password" name="" value="" placeholder="Password">
+            <input id="inpFullname" type="text" name="" value="" placeholder="Full Name">
+            <button id="btnCreate" type="button" name="button">Create User</button>
+        </div>
+      </div>
 
 
   </body>
 
   <script>
 
- var inpLoginname = document.getElementById("inpLoginname");
- var inpPassword = document.getElementById("inpPassword");
- var inpFullname = document.getElementById("inpFullname");
- var btnCreate = document.getElementById("btnCreate");
+     var inpLoginname = document.getElementById("inpLoginname");
+     var inpPassword = document.getElementById("inpPassword");
+     var inpFullname = document.getElementById("inpFullname");
+     var btnCreate = document.getElementById("btnCreate");
+     var btnLogout = document.getElementById("btnLogout");
+     var logindata = JSON.parse(localStorage.getItem("logindata"));
 
-//button click ---------------------------------
-btnCreate.onclick = function() {
+     if(logindata == null){
+       document.getElementById("loggedIn").innerHTML ="Your not logged in. Please log in or create a user";
 
-    var upload = JSON.stringify({
-        loginname: inpLoginname.value,
-        password: inpPassword.value,
-        fullname: inpFullname.value
-    });
+       } else{
+         document.getElementById("loggedIn").innerHTML ="Logged in as " + logindata.loginname;
+       }
 
-    var url = "https://todoertest2.herokuapp.com/thetodoer/users/";
+      //button click ---------------------------------
+      btnCreate.onclick = function() {
 
-    var cfg = {
-        method: "POST",
-        body: upload
-    }
+        if (inpLoginname.value == "" || inpPassword.value == "") {
+          return;
+        }
 
-    superfetch(url, "json", succ, error, cfg);
-}
+          var upload = JSON.stringify({
+              loginname: inpLoginname.value,
+              password: inpPassword.value,
+              fullname: inpFullname.value
+          });
 
-//success --------------------------------------
-function succ(data) {
+          var url = "https://thetodoerapp.herokuapp.com/thetodoer/users/";
 
-    //save logindata/token to localStorage
-    localStorage.setItem("logindata", JSON.stringify(data));
-    console.log("it worked!");
-}
+          var cfg = {
+              method: "POST",
+              body: upload
+          }
 
-//error ----------------------------------------
-function error(err) {
-    console.log(err);
-}
+          superfetch(url, "json", succ, error, cfg);
+      }
+
+      //success --------------------------------------
+      function succ(data) {
+
+          //save logindata/token to localStorage
+          localStorage.setItem("logindata", JSON.stringify(data));
+          console.log("it worked!");
+          window.location.reload();
+      }
+
+      //error ----------------------------------------
+      function error(err) {
+          console.log(err);
+      }
+
+      btnLogout.onclick = function() {
+          document.getElementById("loggedIn").innerHTML ="You logged out of " + logindata.loginname;
+          localStorage.clear();
+      }
 
 
   </script>

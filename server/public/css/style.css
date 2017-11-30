@@ -11,10 +11,11 @@ h1, h2, h3, p{
   z-index: 1;
   background: #FFFFFF;
   max-width: 360px;
-  margin:auto ;
-  padding: 45px;
+  margin:auto;
+  padding: 10px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 25px;
 
 }
 
@@ -45,6 +46,7 @@ h1, h2, h3, p{
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 25px;
 }
 .form input {
   font-family: "Roboto", sans-serif;
@@ -111,9 +113,25 @@ h1, h2, h3, p{
 .container .info span .fa {
   color: #EF3B3A;
 }
+
+.months{
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+   }
+
 body {
 
   background-image: url("bilder/coffe1.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
   background-color: #cccccc;
   font-family: "Roboto", sans-serif;
 }
@@ -124,6 +142,7 @@ ul {
     padding: 0;
     overflow: hidden;
     background-color: #333;
+    border-radius: 10px;
 }
 
 li {
@@ -144,4 +163,13 @@ li a:hover:not(.active) {
 
 .active {
     background-color: #3399FF;
+}
+
+.logout{
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
 }

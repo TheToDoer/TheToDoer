@@ -2,7 +2,7 @@ const express = require('express');
 const app = express(); //server-app
 var port = process.env.PORT || 8080;
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 
 // global for all routes -------------------------
 app.use(function(req, res, next) {

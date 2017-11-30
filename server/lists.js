@@ -4,7 +4,7 @@ var db = require('./dbconnect'); //database
 var bodyParser = require('body-parser').text();
 
 var jwt = require("jsonwebtoken");
-var key = "bottyja235%%dasa"; //used to check the token
+var key = "bottyja235%%dasa"; //used to check the token. Burde kanskje gjemmes senere.
 var logindata; //logindata from the token
 
 
@@ -32,7 +32,7 @@ router.use(function (req, res, next) {
 });
 
 
-//endpoint: GET list -----------------------------
+//endpoint: GET list with items -----------------------------
 router.get('/', function (req, res) {
 
 
@@ -45,6 +45,29 @@ router.get('/', function (req, res) {
 
     db.any(sql).then(function(data) {
 
+        db.any("DEALLOCATE get_lists");
+        res.status(200).json(data); //success – send the data as JSON!
+
+    }).catch(function(err) {
+
+        res.status(500).json(err);
+
+    });
+});
+
+//endpoint: GET list -----------------------------
+router.get('/yourlist', function (req, res) {
+
+
+  console.log("get success!");
+
+  var sql = `PREPARE get_list (text) AS
+              SELECT * FROM listview WHERE loginname=$1;
+              EXECUTE get_list ('${logindata.loginname}')`;
+
+    db.any(sql).then(function(data) {
+
+        db.any("DEALLOCATE get_list");
         res.status(200).json(data); //success – send the data as JSON!
 
     }).catch(function(err) {
@@ -74,52 +97,12 @@ router.post('/', bodyParser, function (req, res) {
     });
 });
 
-
-//create item-----------------------------------------
-
+//create item-------------------------------------------
 router.post('/item', bodyParser, function (req, res) {
 
     var upload = JSON.parse(req.body);
 
-
-    // check user ----------------------------
-/*
-    var checkUser = `PREPARE check_user (int, text) AS
-                     SELECT  tasklists WHERE list_id=$1 AND loginname=$2 RETURNING *;
-                     EXECUTE check_user ('${upload.list_id}', '${logindata.loginname}')`;
-
-      db.any(checkUser).then(function(data) {
-
-        var ok = false;
-
-          //1. lag ny sql som får tak i alle liste id'ene til gjeldende bruker
-          //2. sjekk om upload lise id = resultat fra sql spørringen ovenfor
-
-         for (var i = 0; i < data.length; i++){
-
-              if (upload.list_id == data[i].list_id) {
-                   ok = true;
-                 }
-         }
-
-          if (ok == false){
-              return;
-          }
-
-   	     db.any("DEALLOCATE check_user");
-
-
-   	    res.status(200).json({msg: "check ok"}); //success!
-
-       }).catch(function(err) {
-
-           	res.status(500).json(err);
-
-    });
-
-*/
-
-      // insert item kode--------------------------
+// insert item kode--------------------------
       var sql = `PREPARE insert_item (int, text, text, text, date, time ) AS
                   INSERT INTO list_items VALUES(DEFAULT, $2, $3, $4, $5, $6); EXECUTE insert_item
                   (0, '${upload.item_name}', '${upload.list_name}', '${logindata.loginname}', '${upload.duedate}','${upload.duetime}')`;
@@ -145,10 +128,9 @@ router.post('/item', bodyParser, function (req, res) {
 
 router.delete('/', function (req, res) {
 
-    //var upload = req.query.tasklistsid;
     var upload = req.query.listname;
 
-var sql = `PREPARE delete_list (text, text) AS
+    var sql = `PREPARE delete_list (text, text) AS
              DELETE FROM tasklists WHERE list_name=$1 AND loginname=$2 RETURNING *;
              EXECUTE delete_list('${upload}', '${logindata.loginname}')`;
 
